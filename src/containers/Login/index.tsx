@@ -1,20 +1,22 @@
-import { ReactNode } from "react";
+import React from "react";
 
-import { Text } from "react-native";
+import { Container, Button, ButtonText, Logo } from "./styles";
 
-import { Container } from "./styles";
+import logo from "~/assets/logo.png";
 
 interface LoginProps {
-  children: ReactNode;
+  onLogin: () => void;
 }
 
-function Login({ children }: LoginProps) {
+function LoginContainer({ onLogin }: LoginProps) {
   return (
     <Container>
-      <Text>Login</Text>
-      {children}
+      <Logo source={logo} />
+      <Button onPress={onLogin}>
+        <ButtonText>Entrar</ButtonText>
+      </Button>
     </Container>
   );
 }
 
-export default Login;
+export default LoginContainer;
