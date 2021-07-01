@@ -8,6 +8,7 @@ import {
 import { StatusBar } from "expo-status-bar";
 import AppLoading from "expo-app-loading";
 import Routes from "~/routes";
+import { AuthProvider } from "~/contexts/providers/auth";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -21,9 +22,9 @@ export default function App() {
   }
 
   return (
-    <>
-      <Routes />
+    <AuthProvider>
       <StatusBar translucent />
-    </>
+      <Routes />
+    </AuthProvider>
   );
 }

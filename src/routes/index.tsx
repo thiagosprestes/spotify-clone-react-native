@@ -1,16 +1,16 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import Login from "~/screens/Login";
-
-const Stack = createStackNavigator();
+import { useContext } from "react";
+import { AuthContext } from "~/contexts/providers/auth";
+import AppRoutes from "./app.routes";
+import AuthRoutes from "./auth.routes";
 
 export default function Routes() {
+  const { token } = useContext(AuthContext);
+
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Home" component={Login} />
-      </Stack.Navigator>
+      {token ? <AppRoutes /> : <AuthRoutes />}
     </NavigationContainer>
   );
 }

@@ -1,19 +1,18 @@
 import * as Linking from "expo-linking";
 import React, { useEffect } from "react";
-import { StackNavigationProp } from "@react-navigation/stack";
 import LoginContainer from "~/containers/Login";
 import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
-
-export interface NavigationProps {
-  navigation: StackNavigationProp<any, any>;
-}
+import { useContext } from "react";
+import { AuthContext } from "~/contexts/providers/auth";
 
 const discovery = {
   authorizationEndpoint: "https://accounts.spotify.com/authorize",
   tokenEndpoint: "https://accounts.spotify.com/api/token",
 };
 
-function LoginScreen({ navigation }: NavigationProps) {
+function LoginScreen() {
+  const { storeToken } = useContext(AuthContext);
+
   const [request, response, promptAsync] = useAuthRequest(
     {
       clientId: "f22d961f548f4442936ba5257dc37f88",
@@ -31,6 +30,8 @@ function LoginScreen({ navigation }: NavigationProps) {
   useEffect(() => {
     if (response?.type === "success") {
       const { code } = response.params;
+
+      storeToken(code);
     }
   }, [response]);
 
