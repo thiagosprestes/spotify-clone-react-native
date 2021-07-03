@@ -2,8 +2,8 @@ import * as Linking from "expo-linking";
 import React, { useEffect } from "react";
 import LoginContainer from "~/containers/Login";
 import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
-import { useContext } from "react";
-import { AuthContext } from "~/contexts/providers/auth";
+import { useDispatch } from "react-redux";
+import { addToken } from "~/redux/reducers/user";
 
 const discovery = {
   authorizationEndpoint: "https://accounts.spotify.com/authorize",
@@ -11,7 +11,7 @@ const discovery = {
 };
 
 function LoginScreen() {
-  const { storeToken } = useContext(AuthContext);
+  const dispatch = useDispatch();
 
   const [request, response, promptAsync] = useAuthRequest(
     {
@@ -31,7 +31,7 @@ function LoginScreen() {
     if (response?.type === "success") {
       const { code } = response.params;
 
-      storeToken(code);
+      dispatch(addToken(code));
     }
   }, [response]);
 

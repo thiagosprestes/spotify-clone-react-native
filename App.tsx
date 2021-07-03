@@ -8,7 +8,8 @@ import {
 import { StatusBar } from "expo-status-bar";
 import AppLoading from "expo-app-loading";
 import Routes from "~/routes";
-import { AuthProvider } from "~/contexts/providers/auth";
+import { store } from "~/redux/store";
+import { Provider } from "react-redux";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -22,9 +23,9 @@ export default function App() {
   }
 
   return (
-    <AuthProvider>
+    <Provider store={store}>
       <StatusBar translucent />
       <Routes />
-    </AuthProvider>
+    </Provider>
   );
 }
