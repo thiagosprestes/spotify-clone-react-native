@@ -5,11 +5,12 @@ import {
   OpenSans_700Bold,
   useFonts,
 } from "@expo-google-fonts/open-sans";
-import { StatusBar } from "expo-status-bar";
 import AppLoading from "expo-app-loading";
-import Routes from "~/routes";
-import { store } from "~/redux/store";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import Routes from "~/routes";
+import { persistor, store } from "~/redux/store";
+import { SafeAreaView, StatusBar } from "react-native";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -24,8 +25,17 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <StatusBar translucent />
-      <Routes />
+      <PersistGate loading={null} persistor={persistor}>
+        <SafeAreaView
+          style={{
+            paddingTop: StatusBar.currentHeight,
+            flex: 1,
+          }}
+        >
+          <StatusBar translucent />
+          <Routes />
+        </SafeAreaView>
+      </PersistGate>
     </Provider>
   );
 }
