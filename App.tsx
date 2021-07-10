@@ -25,17 +25,17 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <SafeAreaView
-          style={{
-            paddingTop: StatusBar.currentHeight,
-            flex: 1,
-          }}
-        >
-          <StatusBar translucent />
-          <Routes />
-        </SafeAreaView>
-      </PersistGate>
+      {/* <PersistGate loading={null} persistor={persistor}> */}
+      <SafeAreaView
+        style={{
+          paddingTop: StatusBar.currentHeight,
+          flex: 1,
+        }}
+      >
+        <StatusBar translucent />
+        <Routes />
+      </SafeAreaView>
+      {/* </PersistGate> */}
     </Provider>
   );
 }

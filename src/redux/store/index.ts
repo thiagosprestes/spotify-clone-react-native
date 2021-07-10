@@ -14,7 +14,7 @@ import {
   REGISTER,
   REHYDRATE,
 } from "redux-persist";
-import user from "~/redux/reducers/user";
+import auth from "~/redux/reducers/auth";
 
 const persistConfig = {
   key: "root",
@@ -22,13 +22,13 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  user,
+  auth,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: persistedReducer,
+  reducer: rootReducer,
   middleware: getDefaultMiddleware({
     serializableCheck: {
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],

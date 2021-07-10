@@ -14,6 +14,7 @@ export const Title = styled.Text`
   font-family: OpenSans_700Bold;
   font-size: 22px;
   padding-left: 20px;
+  color: #fff;
 `;
 
 export const RecentlyListenedAlbuns = styled.FlatList`
@@ -42,6 +43,7 @@ export const AlbumTitle = styled.Text`
   font-family: OpenSans_700Bold;
   font-size: 12px;
   margin-left: 10px;
+  color: #fff;
 `;
 
 export const ItemsList = styled.FlatList`
@@ -51,7 +53,7 @@ export const ItemsList = styled.FlatList`
 
 export const Item = styled.View`
   margin-right: 20px;
-  margin-bottom: 50px;
+  margin-bottom: 25px;
 `;
 
 export const ItemCover = styled.View`
@@ -65,11 +67,13 @@ export const Itemtitle = styled.Text`
   margin-top: 10px;
   font-family: OpenSans_700Bold;
   font-size: 14px;
+  color: #fff;
 `;
 
 export const ItemArtist = styled.Text`
   font-family: OpenSans_400Regular;
   font-size: 12px;
+  color: #fff;
 `;
 
 export const ArtistCover = styled.View`
