@@ -1,7 +1,7 @@
 import * as React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Home from "~/containers/Home";
 import { Entypo, AntDesign, Ionicons } from "@expo/vector-icons";
+import HomeScreen from "~/screens/Home";
 
 const Tab = createBottomTabNavigator();
 
@@ -26,7 +26,7 @@ export default function AppRoutes() {
     >
       <Tab.Screen
         name="Home"
-        component={Home}
+        component={HomeScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Entypo name="home" size={size} color={color} />
@@ -35,7 +35,7 @@ export default function AppRoutes() {
       />
       <Tab.Screen
         name="Home2"
-        component={Home}
+        component={HomeScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <AntDesign name="search1" size={size} color={color} />
@@ -44,7 +44,7 @@ export default function AppRoutes() {
       />
       <Tab.Screen
         name="Home3"
-        component={Home}
+        component={HomeScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="albums" size={size} color={color} />

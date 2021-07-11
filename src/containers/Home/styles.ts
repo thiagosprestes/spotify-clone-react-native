@@ -56,10 +56,9 @@ export const Item = styled.View`
   margin-bottom: 25px;
 `;
 
-export const ItemCover = styled.View`
+export const ItemCover = styled.Image`
   width: 150px;
   height: 150px;
-  background-color: aqua;
   border-radius: 10px;
 `;
 
@@ -68,12 +67,14 @@ export const Itemtitle = styled.Text`
   font-family: OpenSans_700Bold;
   font-size: 14px;
   color: #fff;
+  width: 150px;
 `;
 
 export const ItemArtist = styled.Text`
   font-family: OpenSans_400Regular;
   font-size: 12px;
   color: #fff;
+  width: 150px;
 `;
 
 export const ArtistCover = styled.View`

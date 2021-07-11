@@ -15,8 +15,13 @@ import {
   ArtistCover,
 } from "./styles";
 import { AntDesign } from "@expo/vector-icons";
+import { Album } from "~/models/Album";
 
-function Home() {
+interface Props {
+  newReleases: Album[];
+}
+
+function HomeContainer({ newReleases }: Props) {
   const test = [
     { label: "avbr" },
     { label: "vrum" },
@@ -57,20 +62,32 @@ function Home() {
           </RecentlyListenedAlbum>
         )}
       />
-      <Title>Músicas populares</Title>
-      <ItemsList
-        data={items}
+      <Title>Novos lançamentos</Title>
+      <ItemsList<React.ElementType>
+        data={newReleases}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
-        renderItem={() => (
+        renderItem={({ item }: { item: Album }) => (
           <Item>
-            <ItemCover />
-            <Itemtitle>Abc</Itemtitle>
-            <ItemArtist>Abc</ItemArtist>
+            <ItemCover
+              source={{
+                uri: item.images[0].url,
+              }}
+            />
+            <Itemtitle numberOfLines={1}>{item.name}</Itemtitle>
+            {item.artists.length > 1 ? (
+              <ItemArtist numberOfLines={1}>
+                {item.artists.map(
+                  (artist, index) => (index ? ", " : "") + artist.name
+                )}
+              </ItemArtist>
+            ) : (
+              <ItemArtist>{item.artists[0].name}</ItemArtist>
+            )}
           </Item>
         )}
       />
-      <Title>Artistas populares</Title>
+      {/* <Title>Artistas populares</Title>
       <ItemsList
         data={items}
         horizontal={true}
@@ -82,8 +99,8 @@ function Home() {
           </Item>
         )}
       />
-      <Title>Playlists em alta</Title>
-      <ItemsList
+      <Title>Playlists em alta</Title> */}
+      {/* <ItemsList
         data={items}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
@@ -94,9 +111,9 @@ function Home() {
             <ItemArtist>Abc</ItemArtist>
           </Item>
         )}
-      />
+      /> */}
     </Container>
   );
 }
 
-export default Home;
+export default HomeContainer;

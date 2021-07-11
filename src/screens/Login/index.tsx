@@ -5,7 +5,7 @@ import { makeRedirectUri, useAuthRequest } from "expo-auth-session";
 import { useDispatch } from "react-redux";
 import { addAuthData, AuthState } from "~/redux/reducers/auth";
 import Constants from "expo-constants";
-import { authApi } from "~/services/api";
+import { appApi, authApi } from "~/services/api";
 
 const discovery = {
   authorizationEndpoint: "https://accounts.spotify.com/authorize",
@@ -25,6 +25,8 @@ function LoginScreen() {
     const { data } = await authApi.post<AuthState>("api/token", params);
 
     dispatch(addAuthData(data));
+
+    appApi.defaults.headers.Authorization = `Bearer ${data.access_token}`;
   };
 
   const [request, response, promptAsync] = useAuthRequest(

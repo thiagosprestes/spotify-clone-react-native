@@ -34,6 +34,8 @@ appApi.interceptors.response.use(
         const { data } = await authApi.post<AuthState>("api/token", params);
 
         store.dispatch(addAuthData(data));
+
+        appApi.defaults.headers.Authorization = `Bearer ${data.access_token}`;
       } catch (error) {
         console.log("Error when try to get new access token :(", error);
       }
