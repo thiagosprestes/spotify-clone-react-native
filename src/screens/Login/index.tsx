@@ -32,7 +32,12 @@ function LoginScreen() {
   const [request, response, promptAsync] = useAuthRequest(
     {
       clientId: "f22d961f548f4442936ba5257dc37f88",
-      scopes: ["user-read-email", "playlist-modify-public"],
+      scopes: [
+        "user-read-email",
+        "playlist-modify-public",
+        "user-read-recently-played",
+        "user-top-read",
+      ],
       // In order to follow the "Authorization Code Flow" to fetch token after authorizationEndpoint
       // this must be set to false
       usePKCE: false,

@@ -16,30 +16,25 @@ import {
 } from "./styles";
 import { AntDesign } from "@expo/vector-icons";
 import { Album } from "~/models/Album";
+import { RecentlyPlayed } from "~/models/RecentlyPlayed";
+import { UserArtist } from "~/models/UserArtist";
+import { PopularPlaylist } from "~/models/PopularPlaylist";
 
 interface Props {
   newReleases: Album[];
+  recentlyPlayed: RecentlyPlayed[];
+  onLogout: () => void;
+  userTopArtists: UserArtist[];
+  popularPlaylists: PopularPlaylist[];
 }
 
-function HomeContainer({ newReleases }: Props) {
-  const test = [
-    { label: "avbr" },
-    { label: "vrum" },
-    { label: "vrum" },
-    { label: "vrum" },
-    { label: "vrum" },
-    { label: "vrum" },
-  ];
-
-  const items = [
-    { label: "avbr" },
-    { label: "vrum" },
-    { label: "vrum" },
-    { label: "vrum" },
-    { label: "vrum" },
-    { label: "vrum" },
-  ];
-
+function HomeContainer({
+  newReleases,
+  recentlyPlayed,
+  onLogout,
+  userTopArtists,
+  popularPlaylists,
+}: Props) {
   return (
     <Container>
       <Header>
@@ -48,17 +43,19 @@ function HomeContainer({ newReleases }: Props) {
           size={24}
           color="#fff"
           style={{ marginLeft: "auto" }}
+          onPress={onLogout}
         />
         <Title>Boa noite!</Title>
       </Header>
-      <RecentlyListenedAlbuns
+      <RecentlyListenedAlbuns<React.ElementType>
         numColumns={2}
-        data={test}
+        data={recentlyPlayed}
         columnWrapperStyle={{ justifyContent: "space-between" }}
-        renderItem={() => (
+        keyExtractor={(item: RecentlyPlayed) => item.track.id}
+        renderItem={({ item }: { item: RecentlyPlayed }) => (
           <RecentlyListenedAlbum>
-            <AlbumCover />
-            <AlbumTitle>Nome do album</AlbumTitle>
+            <AlbumCover source={{ uri: item.track.album.images[1].url }} />
+            <AlbumTitle numberOfLines={1}>{item.track.name}</AlbumTitle>
           </RecentlyListenedAlbum>
         )}
       />
@@ -67,6 +64,8 @@ function HomeContainer({ newReleases }: Props) {
         data={newReleases}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
+        keyExtractor={(item: Album) => item.id}
+        contentContainerStyle={{ paddingRight: 20 }}
         renderItem={({ item }: { item: Album }) => (
           <Item>
             <ItemCover
@@ -87,31 +86,38 @@ function HomeContainer({ newReleases }: Props) {
           </Item>
         )}
       />
-      {/* <Title>Artistas populares</Title>
-      <ItemsList
-        data={items}
+      <Title>Seus artistas favoritos</Title>
+      <ItemsList<React.ElementType>
+        data={userTopArtists}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
-        renderItem={() => (
+        keyExtractor={(item: UserArtist) => item.id}
+        contentContainerStyle={{ paddingRight: 20 }}
+        renderItem={({ item }: { item: UserArtist }) => (
           <Item>
-            <ArtistCover />
-            <Itemtitle style={{ textAlign: "center" }}>Abc</Itemtitle>
+            <ArtistCover source={{ uri: item.images[0].url }} />
+            <Itemtitle style={{ textAlign: "center" }}>{item.name}</Itemtitle>
           </Item>
         )}
       />
-      <Title>Playlists em alta</Title> */}
-      {/* <ItemsList
-        data={items}
+      <Title>Playlists em alta no Brasil</Title>
+      <ItemsList<React.ElementType>
+        data={popularPlaylists}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
-        renderItem={() => (
+        keyExtractor={(item: Album) => item.id}
+        contentContainerStyle={{ paddingRight: 20 }}
+        renderItem={({ item }: { item: PopularPlaylist }) => (
           <Item>
-            <ItemCover />
-            <Itemtitle>Abc</Itemtitle>
-            <ItemArtist>Abc</ItemArtist>
+            <ItemCover
+              source={{
+                uri: item.images[0].url,
+              }}
+            />
+            <Itemtitle numberOfLines={1}>{item.name}</Itemtitle>
           </Item>
         )}
-      /> */}
+      />
     </Container>
   );
 }

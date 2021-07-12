@@ -1,6 +1,6 @@
 import axios from "axios";
 import Constants from "expo-constants";
-import { addAuthData, AuthState } from "~/redux/reducers/auth";
+import { addAuthData, AuthState, removeAuthData } from "~/redux/reducers/auth";
 import { store } from "~/redux/store";
 
 const authApi = axios.create({
@@ -30,14 +30,18 @@ appApi.interceptors.response.use(
       params.append("grant_type", "refresh_token");
       params.append("refresh_token", refresh_token);
 
-      try {
-        const { data } = await authApi.post<AuthState>("api/token", params);
+      if (refresh_token) {
+        try {
+          const { data } = await authApi.post<AuthState>("api/token", params);
 
-        store.dispatch(addAuthData(data));
+          store.dispatch(addAuthData(data));
 
-        appApi.defaults.headers.Authorization = `Bearer ${data.access_token}`;
-      } catch (error) {
-        console.log("Error when try to get new access token :(", error);
+          appApi.defaults.headers.Authorization = `Bearer ${data.access_token}`;
+        } catch (error) {
+          console.log("Error when try to get new access token :(", error);
+        }
+      } else {
+        store.dispatch(removeAuthData());
       }
     }
   }

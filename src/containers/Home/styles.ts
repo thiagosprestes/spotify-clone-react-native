@@ -31,10 +31,9 @@ export const RecentlyListenedAlbum = styled.View`
   margin-bottom: 15px;
 `;
 
-export const AlbumCover = styled.View`
+export const AlbumCover = styled.Image`
   width: 50px;
   height: 50px;
-  background-color: blue;
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
 `;
@@ -44,6 +43,7 @@ export const AlbumTitle = styled.Text`
   font-size: 12px;
   margin-left: 10px;
   color: #fff;
+  width: 100px;
 `;
 
 export const ItemsList = styled.FlatList`
@@ -77,9 +77,8 @@ export const ItemArtist = styled.Text`
   width: 150px;
 `;
 
-export const ArtistCover = styled.View`
+export const ArtistCover = styled.Image`
   width: 150px;
   height: 150px;
-  background-color: aqua;
-  border-radius: ${150 / 2};
+  border-radius: 75px;
 `;

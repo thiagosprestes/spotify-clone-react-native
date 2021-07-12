@@ -1,43 +1,97 @@
 import React, { useEffect, useState } from "react";
-import { Alert } from "react-native";
+import { useDispatch } from "react-redux";
 import HomeContainer from "~/containers/Home";
-import { Album } from "~/models/Album";
-import { store } from "~/redux/store";
+import { Album, NewReleasesResponse } from "~/models/Album";
+import {
+  PopularPlaylist,
+  PopularPlaylistResponse,
+} from "~/models/PopularPlaylist";
+import {
+  RecentlyPlayed,
+  RecentlyPlayedResponse,
+} from "~/models/RecentlyPlayed";
+import { UserArtist, UserArtistResponse } from "~/models/UserArtist";
+import { removeAuthData } from "~/redux/reducers/auth";
 import { appApi } from "~/services/api";
-
-interface NewReleasesResponse {
-  albums: {
-    href: string;
-    items: Album[];
-    limit: number;
-    next: string;
-    offset: number;
-    previous: any;
-    total: number;
-  };
-}
 
 function HomeScreen() {
   const [newReleases, setNewReleases] = useState<Album[]>([]);
+  const [recentlyPlayed, setRecentlyPlayed] = useState<RecentlyPlayed[]>([]);
+  const [userTopArtists, setUserTopArtists] = useState<UserArtist[]>([]);
+  const [popularPlaylists, setPopularPlaylists] = useState<PopularPlaylist[]>(
+    []
+  );
+
+  const dispatch = useDispatch();
 
   const handleGetNewReleases = async () => {
     try {
       const response = await appApi.get<NewReleasesResponse>(
-        "browse/new-releases?country=BR&limit=10"
+        "browse/new-releases?limit=10"
       );
 
       setNewReleases(response.data.albums.items);
     } catch (error) {
       console.log(error);
-      Alert.alert("Ocorreu um erro ao obter os lançamentos mais recentes :(");
     }
+  };
+
+  const handleGetRecentlyPlayed = async () => {
+    try {
+      const response = await appApi.get<RecentlyPlayedResponse>(
+        "me/player/recently-played?limit=6"
+      );
+
+      setRecentlyPlayed(response.data.items);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleGetUserTopArtists = async () => {
+    try {
+      const response = await appApi.get<UserArtistResponse>(
+        "me/top/artists?limit=10"
+      );
+
+      setUserTopArtists(response.data.items);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleGetPopularPlayslists = async () => {
+    try {
+      const response = await appApi.get<PopularPlaylistResponse>(
+        "browse/featured-playlists?country=BR&limit=10"
+      );
+
+      setPopularPlaylists(response.data.playlists.items);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleOnLogout = (): void => {
+    dispatch(removeAuthData());
   };
 
   useEffect(() => {
     handleGetNewReleases();
+    handleGetRecentlyPlayed();
+    handleGetUserTopArtists();
+    handleGetPopularPlayslists();
   }, []);
 
-  return <HomeContainer newReleases={newReleases} />;
+  return (
+    <HomeContainer
+      newReleases={newReleases}
+      recentlyPlayed={recentlyPlayed}
+      onLogout={handleOnLogout}
+      userTopArtists={userTopArtists}
+      popularPlaylists={popularPlaylists}
+    />
+  );
 }
 
 export default HomeScreen;

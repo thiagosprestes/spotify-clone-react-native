@@ -1,4 +1,4 @@
-interface AlbumArtist {
+export interface AlbumArtist {
   external_urls: {
     spotify: string;
   };
@@ -31,4 +31,16 @@ export interface Album {
   total_tracks: number;
   type: string;
   uri: string;
+}
+
+export interface NewReleasesResponse {
+  albums: {
+    href: string;
+    items: Album[];
+    limit: number;
+    next: string;
+    offset: number;
+    previous: any;
+    total: number;
+  };
 }
