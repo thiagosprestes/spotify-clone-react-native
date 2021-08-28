@@ -6,13 +6,11 @@ export interface PopularPlaylist {
   };
   href: string;
   id: string;
-  images: [
-    {
-      height: number;
-      url: string;
-      width: number;
-    }
-  ];
+  images: {
+    height?: number;
+    url: string;
+    width?: number;
+  }[];
   name: string;
   owner: {
     display_name: string;
@@ -24,8 +22,8 @@ export interface PopularPlaylist {
     type: string;
     uri: string;
   };
-  primary_color: string;
-  public: boolean;
+  primary_color?: string;
+  public?: boolean;
   snapshot_id: string;
   tracks: {
     href: string;

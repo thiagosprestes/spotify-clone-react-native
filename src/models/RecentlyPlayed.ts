@@ -2,29 +2,29 @@ import { Album, AlbumArtist } from "./Album";
 
 export interface RecentlyPlayed {
   track: {
-    album: Album;
-    artists: AlbumArtist;
-    available_markets: string[];
-    disc_number: number;
-    duration_ms: number;
-    explicit: boolean;
-    external_ids: {
-      isrc: string;
+    album?: Album;
+    artists?: AlbumArtist;
+    available_markets?: string[];
+    disc_number?: number;
+    duration_ms?: number;
+    explicit?: boolean;
+    external_ids?: {
+      isrc?: string;
     };
-    external_urls: {
-      spotify: string;
+    external_urls?: {
+      spotify?: string;
     };
-    href: string;
-    id: string;
-    is_local: boolean;
-    name: string;
-    popularity: number;
-    preview_url: string;
-    track_number: number;
-    type: string;
-    uri: string;
+    href?: string;
+    id?: string;
+    is_local?: boolean;
+    name?: string;
+    popularity?: number;
+    preview_url?: string;
+    track_number?: number;
+    type?: string;
+    uri?: string;
   };
-  played_at: Date;
+  played_at: String;
   context: {
     external_urls: {
       spotify: string;

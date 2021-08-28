@@ -5,7 +5,15 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "react-native",
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|@sentry/.*)"
+    ],
+    "setupFiles": ["./setupTests.ts"]
   },
   "dependencies": {
     "@expo-google-fonts/inter": "^0.1.0",
@@ -34,6 +42,7 @@
     "react-native-reanimated": "~2.1.0",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.0.0",
+    "react-native-skeleton-content": "^1.0.22",
     "react-native-web": "~0.13.12",
     "react-native-webview": "11.2.3",
     "react-redux": "^7.2.4",
@@ -42,10 +51,16 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
+    "@testing-library/react-native": "^7.2.0",
+    "@types/jest": "^27.0.1",
     "@types/react": "~16.9.35",
     "@types/react-native": "~0.63.2",
+    "@types/react-test-renderer": "^17.0.1",
     "@types/styled-components": "^5.1.10",
     "@types/styled-components-react-native": "^5.1.1",
+    "jest-expo": "^42.1.0",
+    "jest-mock-extended": "^2.0.2-beta2",
+    "react-test-renderer": "^17.0.2",
     "typescript": "~4.0.0"
   },
   "private": true

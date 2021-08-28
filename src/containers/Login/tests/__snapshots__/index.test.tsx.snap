@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginContainer test LoginContainer should be render 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#121212",
+        "flexBasis": 0,
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "justifyContent": "center",
+      },
+    ]
+  }
+>
+  <Image
+    source={
+      Object {
+        "testUri": "../../../src/assets/logo.png",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "height": 75,
+          "marginBottom": 50,
+          "width": 250,
+        },
+      ]
+    }
+  />
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#fff",
+        "borderRadius": 20,
+        "height": 50,
+        "justifyContent": "center",
+        "opacity": 1,
+        "width": 260,
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000",
+            "fontFamily": "OpenSans_700Bold",
+            "fontSize": 18,
+          },
+        ]
+      }
+    >
+      Entrar
+    </Text>
+  </View>
+</View>
+`;

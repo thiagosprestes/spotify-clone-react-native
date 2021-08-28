@@ -1,9 +1,19 @@
 import * as React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Entypo, AntDesign, Ionicons } from "@expo/vector-icons";
+import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "~/screens/Home";
+import AlbumScreen from "~/screens/Album";
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+const HomeStackScreen = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="Home" component={HomeScreen} />
+    <Stack.Screen name="Album" component={AlbumScreen} />
+  </Stack.Navigator>
+);
 
 export default function AppRoutes() {
   return (
@@ -26,7 +36,7 @@ export default function AppRoutes() {
     >
       <Tab.Screen
         name="Home"
-        component={HomeScreen}
+        component={HomeStackScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Entypo name="home" size={size} color={color} />

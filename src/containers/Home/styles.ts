@@ -22,7 +22,7 @@ export const RecentlyListenedAlbuns = styled.FlatList`
   padding: 0 20px;
 `;
 
-export const RecentlyListenedAlbum = styled.View`
+export const RecentlyListenedAlbum = styled.TouchableOpacity`
   flex-direction: row;
   background-color: #282828;
   align-items: center;

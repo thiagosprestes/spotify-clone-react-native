@@ -3,19 +3,17 @@ export interface UserArtist {
     spotify: string;
   };
   followers: {
-    href: string;
+    href?: string;
     total: number;
   };
   genres: string[];
   href: string;
   id: string;
-  images: [
-    {
-      height: number;
-      url: string;
-      width: number;
-    }
-  ];
+  images: {
+    height: number;
+    url: string;
+    width: number;
+  }[];
   name: string;
   popularity: number;
   type: string;

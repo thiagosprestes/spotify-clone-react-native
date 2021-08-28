@@ -26,6 +26,7 @@ interface Props {
   onLogout: () => void;
   userTopArtists: UserArtist[];
   popularPlaylists: PopularPlaylist[];
+  onGoToAlbum: () => void;
 }
 
 function HomeContainer({
@@ -34,6 +35,7 @@ function HomeContainer({
   onLogout,
   userTopArtists,
   popularPlaylists,
+  onGoToAlbum,
 }: Props) {
   return (
     <Container>
@@ -53,8 +55,14 @@ function HomeContainer({
         columnWrapperStyle={{ justifyContent: "space-between" }}
         keyExtractor={(item: RecentlyPlayed) => item.track.id}
         renderItem={({ item }: { item: RecentlyPlayed }) => (
-          <RecentlyListenedAlbum>
-            <AlbumCover source={{ uri: item.track.album.images[1].url }} />
+          <RecentlyListenedAlbum onPress={onGoToAlbum}>
+            <AlbumCover
+              source={{
+                uri:
+                  item?.track?.album?.images &&
+                  item?.track?.album?.images[0].url,
+              }}
+            />
             <AlbumTitle numberOfLines={1}>{item.track.name}</AlbumTitle>
           </RecentlyListenedAlbum>
         )}
@@ -70,7 +78,7 @@ function HomeContainer({
           <Item>
             <ItemCover
               source={{
-                uri: item.images[0].url,
+                uri: item.images && item.images[0]?.url,
               }}
             />
             <Itemtitle numberOfLines={1}>{item.name}</Itemtitle>

@@ -1,3 +1,4 @@
+import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import HomeContainer from "~/containers/Home";
@@ -14,7 +15,11 @@ import { UserArtist, UserArtistResponse } from "~/models/UserArtist";
 import { removeAuthData } from "~/redux/reducers/auth";
 import { appApi } from "~/services/api";
 
-function HomeScreen() {
+interface Props {
+  navigation: StackNavigationProp<any, any>;
+}
+
+function HomeScreen({ navigation }: Props) {
   const [newReleases, setNewReleases] = useState<Album[]>([]);
   const [recentlyPlayed, setRecentlyPlayed] = useState<RecentlyPlayed[]>([]);
   const [userTopArtists, setUserTopArtists] = useState<UserArtist[]>([]);
@@ -22,7 +27,7 @@ function HomeScreen() {
     []
   );
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const handleGetNewReleases = async () => {
     try {
@@ -73,7 +78,11 @@ function HomeScreen() {
   };
 
   const handleOnLogout = (): void => {
-    dispatch(removeAuthData());
+    // dispatch(removeAuthData());
+  };
+
+  const handleOnGoToAlbum = (): void => {
+    navigation.navigate("Album");
   };
 
   useEffect(() => {
@@ -90,6 +99,7 @@ function HomeScreen() {
       onLogout={handleOnLogout}
       userTopArtists={userTopArtists}
       popularPlaylists={popularPlaylists}
+      onGoToAlbum={handleOnGoToAlbum}
     />
   );
 }
