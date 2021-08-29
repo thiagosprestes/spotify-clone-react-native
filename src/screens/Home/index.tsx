@@ -13,10 +13,12 @@ import {
 } from "~/models/RecentlyPlayed";
 import { UserArtist, UserArtistResponse } from "~/models/UserArtist";
 import { removeAuthData } from "~/redux/reducers/auth";
+import { Routes } from "~/routes/appRoutes";
+import { AppNavigationRouteParams } from "~/routes/appRoutesParams";
 import { appApi } from "~/services/api";
 
 interface Props {
-  navigation: StackNavigationProp<any, any>;
+  navigation: StackNavigationProp<AppNavigationRouteParams, Routes.Home>;
 }
 
 function HomeScreen({ navigation }: Props) {
@@ -27,7 +29,7 @@ function HomeScreen({ navigation }: Props) {
     []
   );
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const handleGetNewReleases = async () => {
     try {
@@ -78,11 +80,13 @@ function HomeScreen({ navigation }: Props) {
   };
 
   const handleOnLogout = (): void => {
-    // dispatch(removeAuthData());
+    dispatch(removeAuthData());
   };
 
-  const handleOnGoToAlbum = (): void => {
-    navigation.navigate("Album");
+  const handleOnGoToAlbum = (albumId: string): void => {
+    navigation.navigate(Routes.Album, {
+      albumId,
+    });
   };
 
   useEffect(() => {

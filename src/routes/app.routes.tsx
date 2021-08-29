@@ -4,14 +4,27 @@ import { Entypo, AntDesign, Ionicons } from "@expo/vector-icons";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "~/screens/Home";
 import AlbumScreen from "~/screens/Album";
+import { AppNavigationRouteParams } from "./appRoutesParams";
+import { Routes } from "./appRoutes";
 
 const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<AppNavigationRouteParams>();
 
 const HomeStackScreen = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="Home" component={HomeScreen} />
-    <Stack.Screen name="Album" component={AlbumScreen} />
+    <Stack.Screen name={Routes.Home} component={HomeScreen} />
+    <Stack.Screen
+      name={Routes.Album}
+      component={AlbumScreen}
+      options={{
+        headerShown: true,
+        headerStyle: {
+          backgroundColor: "#121212",
+        },
+        headerTintColor: "#fff",
+        headerTitleAlign: "center",
+      }}
+    />
   </Stack.Navigator>
 );
 

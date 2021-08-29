@@ -26,7 +26,7 @@ interface Props {
   onLogout: () => void;
   userTopArtists: UserArtist[];
   popularPlaylists: PopularPlaylist[];
-  onGoToAlbum: () => void;
+  onGoToAlbum: (albumId: string) => void;
 }
 
 function HomeContainer({
@@ -55,16 +55,22 @@ function HomeContainer({
         columnWrapperStyle={{ justifyContent: "space-between" }}
         keyExtractor={(item: RecentlyPlayed) => item.track.id}
         renderItem={({ item }: { item: RecentlyPlayed }) => (
-          <RecentlyListenedAlbum onPress={onGoToAlbum}>
-            <AlbumCover
-              source={{
-                uri:
-                  item?.track?.album?.images &&
-                  item?.track?.album?.images[0].url,
-              }}
-            />
-            <AlbumTitle numberOfLines={1}>{item.track.name}</AlbumTitle>
-          </RecentlyListenedAlbum>
+          <>
+            {recentlyPlayed.length > 0 && (
+              <RecentlyListenedAlbum
+                onPress={() => onGoToAlbum(item.track.album.id)}
+              >
+                <AlbumCover
+                  source={{
+                    uri:
+                      item?.track?.album?.images &&
+                      item?.track?.album?.images[0].url,
+                  }}
+                />
+                <AlbumTitle numberOfLines={1}>{item.track.name}</AlbumTitle>
+              </RecentlyListenedAlbum>
+            )}
+          </>
         )}
       />
       <Title>Novos lançamentos</Title>

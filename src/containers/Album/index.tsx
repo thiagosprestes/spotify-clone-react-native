@@ -1,6 +1,7 @@
 import React from "react";
-import { ScrollView } from "react-native-gesture-handler";
+import { FlatList } from "react-native";
 import SongItem from "~/components/SongItem";
+import { AlbumTrack } from "~/models/Album";
 
 import {
   AlbumCover,
@@ -12,19 +13,28 @@ import {
   Title,
 } from "./styles";
 
-const AlbumContainer: React.FC = () => {
+interface AlbumProps {
+  cover?: string;
+  title?: string;
+  author?: string;
+  tracks?: AlbumTrack[];
+}
+
+const AlbumContainer = ({ cover, title, author, tracks }: AlbumProps) => {
   return (
     <Container>
-      <ScrollView>
-        <AlbumInfo>
-          <AlbumCover />
-          <Title>Titulo</Title>
-          <Author>Autor</Author>
-        </AlbumInfo>
-        <AuthorInfo></AuthorInfo>
-      </ScrollView>
+      <AlbumInfo>
+        <AlbumCover source={{ uri: cover }} />
+        <Title>{title}</Title>
+        <Author>{author}</Author>
+      </AlbumInfo>
       <Songs>
-        <SongItem />
+        <FlatList
+          data={tracks}
+          renderItem={({ track }: { track: AlbumTrack }) => (
+            <SongItem artist={track.artists[0].name} name={track.name} />
+          )}
+        />
       </Songs>
     </Container>
   );

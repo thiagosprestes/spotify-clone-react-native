@@ -2,7 +2,7 @@ import { Album, AlbumArtist } from "./Album";
 
 export interface RecentlyPlayed {
   track: {
-    album?: Album;
+    album: Album;
     artists?: AlbumArtist;
     available_markets?: string[];
     disc_number?: number;

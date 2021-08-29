@@ -3,15 +3,20 @@ import { SimpleLineIcons } from "@expo/vector-icons";
 
 import { AlbumCover, Artist, Container, Info, Name } from "./styles";
 
-const SongItem: React.FC = () => {
+interface SongItemProps {
+  name: string;
+  artist: string;
+}
+
+const SongItem = ({ name, artist }: SongItemProps) => {
   return (
     <Container>
-      <AlbumCover />
+      {/* <AlbumCover /> */}
       <Info>
-        <Name>Nome</Name>
-        <Artist>Artista</Artist>
+        <Name>{name}</Name>
+        <Artist>{artist}</Artist>
       </Info>
-      <SimpleLineIcons name="options-vertical" size={24} color="#fff" />
+      <SimpleLineIcons name="options-vertical" size={18} color="#e5e5e5" />
     </Container>
   );
 };
