@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { addAuthData, AuthState } from "~/redux/reducers/auth";
 import Constants from "expo-constants";
 import { appApi, authApi } from "~/services/api";
+import { firestoreDatabase } from "~/../firebase";
 
 const discovery = {
   authorizationEndpoint: "https://accounts.spotify.com/authorize",
@@ -50,6 +51,11 @@ function LoginScreen() {
 
   useEffect(() => {
     if (response?.type === "success") {
+      firestoreDatabase.collection("sessions").doc(response.params.code).set({
+        state: response.params.state,
+        date: new Date(),
+      });
+
       const { code } = response.params;
 
       handleOnGetTokens(code);
