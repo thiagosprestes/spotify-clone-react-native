@@ -51,7 +51,7 @@ export const ItemsList = styled.FlatList`
   margin-top: 20px;
 `;
 
-export const Item = styled.View`
+export const Item = styled.TouchableOpacity`
   margin-right: 20px;
   margin-bottom: 25px;
 `;

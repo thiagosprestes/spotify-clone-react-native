@@ -27,6 +27,9 @@ interface Props {
   userTopArtists: UserArtist[];
   popularPlaylists: PopularPlaylist[];
   onGoToAlbum: (albumId: string) => void;
+  onGoToPlaylist: (playlistId: string) => void;
+  onGoToArtist: (artistId: string) => void;
+  salute: string;
 }
 
 function HomeContainer({
@@ -36,6 +39,9 @@ function HomeContainer({
   userTopArtists,
   popularPlaylists,
   onGoToAlbum,
+  onGoToPlaylist,
+  onGoToArtist,
+  salute,
 }: Props) {
   return (
     <Container>
@@ -47,7 +53,7 @@ function HomeContainer({
           style={{ marginLeft: "auto" }}
           onPress={onLogout}
         />
-        <Title>Boa noite!</Title>
+        <Title>{salute}</Title>
       </Header>
       <RecentlyListenedAlbuns<React.ElementType>
         numColumns={2}
@@ -81,7 +87,7 @@ function HomeContainer({
         keyExtractor={(item: Album) => item.id}
         contentContainerStyle={{ paddingRight: 20 }}
         renderItem={({ item }: { item: Album }) => (
-          <Item>
+          <Item onPress={() => onGoToAlbum(item.id)}>
             <ItemCover
               source={{
                 uri: item.images && item.images[0]?.url,
@@ -108,7 +114,7 @@ function HomeContainer({
         keyExtractor={(item: UserArtist) => item.id}
         contentContainerStyle={{ paddingRight: 20 }}
         renderItem={({ item }: { item: UserArtist }) => (
-          <Item>
+          <Item onPress={() => onGoToArtist(item.id)}>
             <ArtistCover source={{ uri: item.images[0].url }} />
             <Itemtitle style={{ textAlign: "center" }}>{item.name}</Itemtitle>
           </Item>
@@ -122,7 +128,7 @@ function HomeContainer({
         keyExtractor={(item: Album) => item.id}
         contentContainerStyle={{ paddingRight: 20 }}
         renderItem={({ item }: { item: PopularPlaylist }) => (
-          <Item>
+          <Item onPress={() => onGoToPlaylist(item.id)}>
             <ItemCover
               source={{
                 uri: item.images[0].url,

@@ -5,4 +5,10 @@ export type AppNavigationRouteParams = {
   [Routes.Album]: {
     albumId: string;
   };
+  [Routes.Playlist]: {
+    playlistId: string;
+  };
+  [Routes.Artist]: {
+    artistId: string;
+  };
 };

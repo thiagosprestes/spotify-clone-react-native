@@ -6,6 +6,8 @@ import HomeScreen from "~/screens/Home";
 import AlbumScreen from "~/screens/Album";
 import { AppNavigationRouteParams } from "./appRoutesParams";
 import { Routes } from "./appRoutes";
+import PlaylistScreen from "~/screens/Playlist";
+import ArtistScreen from "~/screens/Artist";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator<AppNavigationRouteParams>();
@@ -20,6 +22,33 @@ const HomeStackScreen = () => (
         headerShown: true,
         headerStyle: {
           backgroundColor: "#121212",
+          elevation: 0,
+        },
+        headerTintColor: "#fff",
+        headerTitleAlign: "center",
+      }}
+    />
+    <Stack.Screen
+      name={Routes.Playlist}
+      component={PlaylistScreen}
+      options={{
+        headerShown: true,
+        headerStyle: {
+          backgroundColor: "#121212",
+          elevation: 0,
+        },
+        headerTintColor: "#fff",
+        headerTitleAlign: "center",
+      }}
+    />
+    <Stack.Screen
+      name={Routes.Artist}
+      component={ArtistScreen}
+      options={{
+        headerShown: true,
+        headerStyle: {
+          backgroundColor: "#121212",
+          elevation: 0,
         },
         headerTintColor: "#fff",
         headerTitleAlign: "center",

@@ -5,6 +5,7 @@ import { RouteProp } from "@react-navigation/native";
 import { Routes } from "~/routes/appRoutes";
 import { appApi } from "~/services/api";
 import { Album } from "~/models/Album";
+import { States } from "~/models/States";
 
 interface AlbumScreenProps {
   route: RouteProp<AppNavigationRouteParams, Routes.Album>;
@@ -12,30 +13,24 @@ interface AlbumScreenProps {
 
 const AlbumScreen = ({ route }: AlbumScreenProps) => {
   const [albumData, setAlbumData] = useState<Album>();
+  const [state, setState] = useState(States.loading);
 
   const handleOnGetAlbum = async () => {
-    const response = await appApi.get(`albums/${route.params.albumId}`);
+    try {
+      const response = await appApi.get(`albums/${route.params.albumId}`);
 
-    setAlbumData(response.data);
-
-    // console.log(
-    //   "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-    //   albumData?.tracks.items
-    // );
+      setAlbumData(response.data);
+      setState(States.default);
+    } catch (error) {
+      setState(States.error);
+    }
   };
 
   useEffect(() => {
     handleOnGetAlbum();
   }, []);
 
-  return (
-    <AlbumContainer
-      cover={albumData?.images[0].url}
-      author={albumData?.artists[0].name}
-      title={albumData?.name}
-      tracks={albumData?.tracks.items}
-    />
-  );
+  return <AlbumContainer album={albumData} state={state} />;
 };
 
 export default AlbumScreen;

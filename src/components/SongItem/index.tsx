@@ -1,22 +1,39 @@
 import React from "react";
 import { SimpleLineIcons } from "@expo/vector-icons";
 
-import { AlbumCover, Artist, Container, Info, Name } from "./styles";
+import {
+  AlbumCover,
+  Artist,
+  Container,
+  Info,
+  Name,
+  IconContainer,
+} from "./styles";
 
 interface SongItemProps {
   name: string;
   artist: string;
+  isPlaylist: boolean;
+  cover?: string;
 }
 
-const SongItem = ({ name, artist }: SongItemProps) => {
+const SongItem = ({ name, artist, isPlaylist, cover }: SongItemProps) => {
   return (
     <Container>
-      {/* <AlbumCover /> */}
+      {isPlaylist && (
+        <AlbumCover
+          source={{
+            uri: cover,
+          }}
+        />
+      )}
       <Info>
         <Name>{name}</Name>
         <Artist>{artist}</Artist>
       </Info>
-      <SimpleLineIcons name="options-vertical" size={18} color="#e5e5e5" />
+      <IconContainer>
+        <SimpleLineIcons name="options-vertical" size={14} color="#aaaaaa" />
+      </IconContainer>
     </Container>
   );
 };

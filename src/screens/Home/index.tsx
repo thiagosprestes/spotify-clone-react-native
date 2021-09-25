@@ -16,6 +16,7 @@ import { removeAuthData } from "~/redux/reducers/auth";
 import { Routes } from "~/routes/appRoutes";
 import { AppNavigationRouteParams } from "~/routes/appRoutesParams";
 import { appApi } from "~/services/api";
+import { getHours } from "date-fns";
 
 interface Props {
   navigation: StackNavigationProp<AppNavigationRouteParams, Routes.Home>;
@@ -28,6 +29,7 @@ function HomeScreen({ navigation }: Props) {
   const [popularPlaylists, setPopularPlaylists] = useState<PopularPlaylist[]>(
     []
   );
+  const [salute, setSalute] = useState("");
 
   const dispatch = useDispatch();
 
@@ -89,11 +91,36 @@ function HomeScreen({ navigation }: Props) {
     });
   };
 
+  const handleOnGoToPlaylist = (playlistId: string): void => {
+    navigation.navigate(Routes.Playlist, {
+      playlistId,
+    });
+  };
+
+  const handleOnGetDayPeriod = () => {
+    const hour = getHours(new Date());
+
+    if (hour >= 5) {
+      setSalute("Bom dia!");
+    } else if (hour >= 12) {
+      setSalute("Boa tarde!");
+    } else if (hour >= 18) {
+      setSalute("Boa noite!");
+    }
+  };
+
+  const handleOnGoToArtist = (artistId: string): void => {
+    navigation.navigate(Routes.Artist, {
+      artistId,
+    });
+  };
+
   useEffect(() => {
     handleGetNewReleases();
     handleGetRecentlyPlayed();
     handleGetUserTopArtists();
     handleGetPopularPlayslists();
+    handleOnGetDayPeriod();
   }, []);
 
   return (
@@ -104,6 +131,9 @@ function HomeScreen({ navigation }: Props) {
       userTopArtists={userTopArtists}
       popularPlaylists={popularPlaylists}
       onGoToAlbum={handleOnGoToAlbum}
+      onGoToPlaylist={handleOnGoToPlaylist}
+      onGoToArtist={handleOnGoToArtist}
+      salute={salute}
     />
   );
 }
